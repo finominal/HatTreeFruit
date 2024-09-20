@@ -5,36 +5,48 @@
 #define DATA_PIN 6
 #define BRIGHTNESS 255
 
-class Fruit
+class Point
 {
 public:
-  int x;
-  int y;
-  CRGB color;
-  Fruit(int _x, int _y)
+  double x;
+  double y;
+  Point(){};
+  Point(double _x, double _y)
   {
     x = _x;
     y = _y;
   };
 };
 
-// Define the array of leds
-CRGB leds[NUM_LEDS];
-Fruit fruit[] = 
+class Fruit
 {
-  Fruit(0,20),
-  Fruit(13,15),
-  Fruit(20,3),
-  Fruit(17,-10),
-  Fruit(7,-19),
-  Fruit(-7,19),
-  Fruit(-17,-10),
-  Fruit(-20,3),
-  Fruit(-13,15)
+public:
+  Point location;
+  CRGB color;
+  Fruit(){};
+  Fruit(Point _location)
+  {
+    location = _location;
+  };
 };
 
-CRGB defaultcolor = CRGB(255,165,45);
+// Define the array of leds
+CRGB leds[NUM_LEDS];
 
+Fruit fruit[] = 
+{
+  Fruit(Point(0,20)),
+  Fruit(Point(13,15)),
+  Fruit(Point(20,3)),
+  Fruit(Point(17,-10)),
+  Fruit(Point(7,-19)),
+  Fruit(Point(-7,-19)),
+  Fruit(Point(-17,-10)),
+  Fruit(Point(-20,3)),
+  Fruit(Point(-13,15))
+};
+
+#define DEFAULT_COLOR CRGB(255,165,45)
 
 void setup() { 
   delay(1000);
@@ -44,11 +56,8 @@ void setup() {
 }
 
 void loop() { 
-
-  displayDefaultColor();
+  slowlyAround();
+  //setAll(DEFAULT_COLOR);
 
   delay(1000);
 }
-
-/******** Helpers ***********/
-

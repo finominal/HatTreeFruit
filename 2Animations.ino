@@ -1,31 +1,46 @@
 #define NUM_FRUIT 9
 #define LEDS_PER_FRUIT 1
 
+double distanceBetween(Point a, Point b)
+{
+  double xab = a.x - b.x;
+  double yab = a.y - b.y;
+
+  double distance = sqrt( sq(xab) + sq(yab) );
+
+  return abs(distance);
+};
+
 void slowlyAround()
 {
   int frames = 1024;
   int frameNo = 0;
+
   while(frameNo < frames)
   {
-    Circle c = Circle[frameNo]; //get
+    Point sun = orbit[frameNo];
 
     for(int i = 0; i<NUM_FRUIT; i++)
     {
- 
-      double distance = 
-    }
-  }
-}
-
-
-void displayDefaultColor()
-{
-    for(int fruitIdx = 0; fruitIdx < NUM_FRUIT; fruitIdx++)
-    {
-      fruit[fruitIdx].color = defaultcolor;
+      double distance = distanceBetween(sun, fruit[i].location);
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy(distance * 6);
     }
 
     displayFruit();
+
+    frameNo++;
+  }
+
+}
+
+void setAll(CRGB color)
+{
+  for(int fruitIdx = 0; fruitIdx < NUM_FRUIT; fruitIdx++)
+  {
+    fruit[fruitIdx].color = color;
+  }
+
+  displayFruit();
 }
 
 void displayFruit()
@@ -45,7 +60,6 @@ int calcFruitIndex(int fruitIdx, int clusterIdx)
   return (LEDS_PER_FRUIT * fruitIdx) + clusterIdx;
 }
 
-
 void fadeFromBlack()
 {
   int fadeBrightness = 0;
@@ -56,7 +70,7 @@ void fadeFromBlack()
 
     for(int fruitIdx = 0; fruitIdx < NUM_FRUIT; fruitIdx++)
     {
-      fruit[fruitIdx].color = defaultcolor;
+      fruit[fruitIdx].color = DEFAULT_COLOR;
     }
 
     displayFruit();
