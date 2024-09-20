@@ -30,7 +30,28 @@ void slowlyAround()
 
     frameNo++;
   }
+}
 
+void slowlyAroundSharp()
+{
+  int frames = 1024;
+  int frameNo = 0;
+
+  while(frameNo < frames)
+  {
+    Point sun = orbit[frameNo];
+
+    for(int i = 0; i<NUM_FRUIT; i++)
+    {
+      double distance = distanceBetween(sun, fruit[i].location);
+      double maxDistance = MIN(50.0f,distance);
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy((50-maxDistance) * 5);
+    }
+
+    displayFruit();
+
+    frameNo++;
+  }
 }
 
 void setAll(CRGB color)
