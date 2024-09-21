@@ -13,7 +13,7 @@ double distanceBetween(Point a, Point b)
 
 void slowlyAround()
 {
-  int frames = 500;
+  int frames = sizeof(fastOrbit) / sizeof(fastOrbit[0]);
   int frameNo = 0;
 
   while(frameNo < frames)
@@ -23,7 +23,7 @@ void slowlyAround()
     for(int i = 0; i<NUM_FRUIT; i++)
     {
       double distance = distanceBetween(sun, fruit[i].location);
-      fruit[i].color = DEFAULT_COLOR.fadeLightBy(distance * 5);
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy( distance /2 );
     }
 
     displayFruit();

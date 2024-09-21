@@ -35,15 +35,15 @@ CRGB leds[NUM_LEDS];
 
 Fruit fruit[] = 
 {
-  Fruit(Point(0,20)),
-  Fruit(Point(13,15)),
-  Fruit(Point(20,3)),
-  Fruit(Point(17,-10)),
-  Fruit(Point(7,-19)),
-  Fruit(Point(-7,-19)),
-  Fruit(Point(-17,-10)),
-  Fruit(Point(-20,3)),
-  Fruit(Point(-13,15))
+  Fruit(Point(0,200)),
+  Fruit(Point(130,150)),
+  Fruit(Point(200,30)),
+  Fruit(Point(170,-100)),
+  Fruit(Point(70,-190)),
+  Fruit(Point(-70,-190)),
+  Fruit(Point(-170,-100)),
+  Fruit(Point(-200,30)),
+  Fruit(Point(-130,150))
 };
 
 #define DEFAULT_COLOR CRGB(255,165,45)
@@ -59,5 +59,5 @@ void loop() {
   slowlyAround();
   //setAll(DEFAULT_COLOR);
 
-  delay(1000);
+
 }
