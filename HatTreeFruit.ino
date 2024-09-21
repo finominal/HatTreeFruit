@@ -56,7 +56,8 @@ void setup() {
 }
 
 void loop() { 
-  slowlyAround();
+  //slowlyAround();
+  slowlyAroundSharp();
   //setAll(DEFAULT_COLOR);
 
 

@@ -34,18 +34,18 @@ void slowlyAround()
 
 void slowlyAroundSharp()
 {
-  int frames = 1024;
+  int frames = sizeof(slowOrbit) / sizeof(slowOrbit[0]);
   int frameNo = 0;
 
   while(frameNo < frames)
   {
-    Point sun = orbit[frameNo];
+    Point sun = slowOrbit[frameNo];
 
     for(int i = 0; i<NUM_FRUIT; i++)
     {
       double distance = distanceBetween(sun, fruit[i].location);
-      double maxDistance = MIN(50.0f,distance);
-      fruit[i].color = DEFAULT_COLOR.fadeLightBy((50-maxDistance) * 5);
+      double maxDistance = MIN(255.0f,distance);
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy( 255 - (255 - maxDistance));
     }
 
     displayFruit();
