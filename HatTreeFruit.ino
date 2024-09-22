@@ -78,9 +78,13 @@ void setup() {
   
   FastLED.addLeds<WS2813, DATA_PIN, GRB>(leds, NUM_LEDS);
 
+  //start gentle
   fadeFromBlack();
+  fastAround(250, true, In);
+  fastAround(250, false, In);
 }
 
+int lastSize = 380;
 void loop() { 
   
   RotateProgram();
@@ -89,7 +93,7 @@ void loop() {
   switch(currentProgram)
   {
     case still1:
-      fastAround(random(250,380), true, Out);
+      fastAround(250, true, Out);
       setAll(DEFAULT_COLOR);
       delay(stillRunTime);
       break;
@@ -103,8 +107,8 @@ void loop() {
       delay(stillRunTime);
       break;
     case fast: 
-      fastAround(random(250,380), true, In);
-      fastAround(random(250,380), false, In);
+      fastAround(250, true, In);
+      fastAround(250, false, In);
       break;
   }
 
