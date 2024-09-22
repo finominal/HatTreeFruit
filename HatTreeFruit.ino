@@ -7,6 +7,19 @@
 #define NUM_FRUIT 9
 #define LEDS_PER_FRUIT 1
 
+//ProgramRotation
+#define STATIC_RUN_MINUTES 5
+#define SLOWROUND_RUN_MINUTES 1
+#define FASTROUND_RUN_MINUTES 1
+#define MINUTE_MULTIPLIER 1000
+
+uint32_t stillRunTime = STATIC_RUN_MINUTES * MINUTE_MULTIPLIER; 
+uint32_t slowRunTime = SLOWROUND_RUN_MINUTES * MINUTE_MULTIPLIER; 
+uint32_t fastRunTime = FASTROUND_RUN_MINUTES * MINUTE_MULTIPLIER; 
+uint32_t programChangeTime = stillRunTime;
+
+enum FadeDirection {In, Out};
+
 class Point
 {
 public:
@@ -34,7 +47,6 @@ public:
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
-
 
 Fruit fruit[] = 
 {
@@ -71,23 +83,28 @@ void setup() {
 
 void loop() { 
   
-  //RotateProgram();
+  RotateProgram();
   Serial.print("currentProgram:"); Serial.println(currentProgram);
-  currentProgram = fast;
+  //currentProgram = fast;
   switch(currentProgram)
   {
     case still1:
+      fastAround(random(250,380), true, Out);
       setAll(DEFAULT_COLOR);
-      delay(1000);
+      delay(stillRunTime);
       break;
     case slow:
-      slowAround(380);
+      slowAround(380, true, In);
+      slowAround(380, false, In);
       break;
     case still2: 
+      slowAround(380, true, Out);
       setAll(DEFAULT_COLOR);
+      delay(stillRunTime);
       break;
     case fast: 
-      fastAround(random(250,380));
+      fastAround(random(250,380), true, In);
+      fastAround(random(250,380), false, In);
       break;
   }
 

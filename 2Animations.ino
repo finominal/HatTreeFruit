@@ -10,7 +10,7 @@ double distanceBetween(Point a, Point b)
   return abs(distance);
 };
 
-void fastAround(int size)
+void fastAround(int size, bool transition, FadeDirection fade)
 {
   int frames = sizeof(fastOrbit) / sizeof(fastOrbit[0]);
   int frameNo = 0;
@@ -24,6 +24,17 @@ void fastAround(int size)
       double distance = distanceBetween(sun, fruit[i].location);
       double maxDistance = MIN(size,distance);
       fruit[i].color = DEFAULT_COLOR.fadeLightBy( (255 - (size - maxDistance))  ); 
+
+      if(transition)
+      {
+        int percentage = (((double)frameNo / (double)frames) * 100);
+        if(fade == In)
+        {
+          percentage = 100 - percentage;
+        }
+
+        nblend( fruit[i].color, DEFAULT_COLOR, percentage);
+      }
     }
 
     displayFruit();
@@ -32,7 +43,7 @@ void fastAround(int size)
   }
 }
 
-void slowAround(float size)
+void slowAround(float size, bool transition, FadeDirection fade )
 {
   int frames = sizeof(slowOrbit) / sizeof(slowOrbit[0]);
   int frameNo = 0;
@@ -44,12 +55,23 @@ void slowAround(float size)
     for(int i = 0; i<NUM_FRUIT; i++)
     {
       double distance = distanceBetween(sun, fruit[i].location);
-      double maxDistance = MIN(size, distance); //up to the size to dim down by
+
+      double maxDistance = MIN(size, distance ); //up to the size to dim down by
+      
       fruit[i].color = DEFAULT_COLOR.fadeLightBy( 
-        MIN(
-        255 - (size - maxDistance), //dim
-        240 )// min - prevents total black.
+        255 - (size - maxDistance) //dim
         );
+      
+      if(transition)
+      {
+        int percentage = (((double)frameNo / (double)frames) * 100);
+        if(fade == In)
+        {
+          percentage = 100 - percentage;
+        }
+
+        nblend( fruit[i].color, DEFAULT_COLOR, percentage);
+      }
     }
 
     displayFruit();
