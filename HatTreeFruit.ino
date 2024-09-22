@@ -71,9 +71,9 @@ void setup() {
 
 void loop() { 
   
-  RotateProgram();
+  //RotateProgram();
   Serial.print("currentProgram:"); Serial.println(currentProgram);
-
+  currentProgram = fast;
   switch(currentProgram)
   {
     case still1:

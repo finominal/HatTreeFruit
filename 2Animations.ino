@@ -23,7 +23,7 @@ void fastAround(int size)
     {
       double distance = distanceBetween(sun, fruit[i].location);
       double maxDistance = MIN(size,distance);
-      fruit[i].color = DEFAULT_COLOR.fadeLightBy( 255 - (size - maxDistance));
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy( (255 - (size - maxDistance))  ); 
     }
 
     displayFruit();
@@ -44,8 +44,12 @@ void slowAround(float size)
     for(int i = 0; i<NUM_FRUIT; i++)
     {
       double distance = distanceBetween(sun, fruit[i].location);
-      double maxDistance = MIN(size,distance);
-      fruit[i].color = DEFAULT_COLOR.fadeLightBy( 255 - (size - maxDistance));
+      double maxDistance = MIN(size, distance); //up to the size to dim down by
+      fruit[i].color = DEFAULT_COLOR.fadeLightBy( 
+        MIN(
+        255 - (size - maxDistance), //dim
+        240 )// min - prevents total black.
+        );
     }
 
     displayFruit();
